@@ -1,5 +1,6 @@
 package com.mycompany.score;
 
+import com.mycompany.score.mock.AnswerData;
 import com.mycompany.score.service.implement.HsubAssessmentServiceImpl;
 import com.mycompany.score.service.AssessmentService;
 
@@ -16,6 +17,7 @@ public class Score {
         System.out.println("======================== Training 1 ===============================");
         System.out.println("===================================================================");
         System.out.println("***** Gruop Result : " + service.calculate(24, 24, 0, 0, 55));
-
+        AnswerData data = new AnswerData();
+        System.out.println("datas : " + data.getAnswers().size());
     }
 }

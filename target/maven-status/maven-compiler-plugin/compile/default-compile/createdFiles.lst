@@ -1,9 +1,11 @@
 com\mycompany\score\model\Answer.class
 com\mycompany\score\service\AssessmentService.class
 com\mycompany\score\model\Question.class
+com\mycompany\score\service\implement\QuestionServiceImpl.class
 com\mycompany\score\mock\HsubAnswerData.class
 com\mycompany\score\mock\AnswerData.class
 com\mycompany\score\model\HsubAnswer.class
+com\mycompany\score\service\QuestionService.class
 com\mycompany\score\mock\QuestionData.class
 com\mycompany\score\service\implement\HsubAssessmentServiceImpl.class
 com\mycompany\score\Score.class
