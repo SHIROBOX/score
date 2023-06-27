@@ -1,14 +1,42 @@
 package com.mycompany.score.service.implement;
 
+import com.mycompany.score.mock.HsubAnswerData;
+import com.mycompany.score.model.HsubAnswer;
 import com.mycompany.score.service.AssessmentService;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
  * @author mbk_i
  */
 public class HsubAssessmentServiceImpl implements AssessmentService {
+
+    @Override
+    public int findGroupHsub(String hcode) {
+        HsubAnswerData hsubData = new HsubAnswerData();
+        List<HsubAnswer> hsubAnswers = hsubData.getHsubAnswers().stream()
+                .filter(hsubAmswer -> hsubAmswer.getHcode().equals(hcode))
+                .collect(Collectors.toList());
+        int count3 = hsubAnswers.stream()
+                .filter(ans -> ans.getAnswer().getValue().equals(3))
+                .collect(Collectors.toList()).size();
+        int count2 = hsubAnswers.stream()
+                .filter(ans -> ans.getAnswer().getValue().equals(2))
+                .collect(Collectors.toList()).size();
+        int count1 = hsubAnswers.stream()
+                .filter(ans -> ans.getAnswer().getValue().equals(1))
+                .collect(Collectors.toList()).size();
+        int count0 = hsubAnswers.stream()
+                .filter(ans -> ans.getAnswer().getValue().equals(0))
+                .collect(Collectors.toList()).size();
+        int count8 = hsubAnswers.stream()
+                .filter(ans -> ans.getAnswer().getValue().equals(0))
+                .collect(Collectors.toList()).size();
+        return calculate(count3, count2, count1, count0, count8);
+    }
 
     @Override
     public int calculate(int count3, int count2, int count1, int count0, int count8) {
