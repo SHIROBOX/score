@@ -3,8 +3,9 @@ target/
 /nbproject/
 nb-configuration.xml
 /faces-config.NavData
-
+/pom.properties
 .idea
 *.iml
+*.jar
 
 
