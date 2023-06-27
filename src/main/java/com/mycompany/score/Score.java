@@ -15,6 +15,6 @@ public class Score {
         System.out.println("===================================================================");
         System.out.println("======================== Training 1 ===============================");
         System.out.println("===================================================================");
-        System.out.println("group : " + service.findGroupHsub("13814"));
+        System.out.println("group : " + service.findGroupByHsub("13814"));
     }
 }

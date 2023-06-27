@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class HsubAssessmentServiceImpl implements AssessmentService {
 
     @Override
-    public int findGroupHsub(String hcode) {
+    public int findGroupByHsub(String hcode) {
         HsubAnswerData hsubData = new HsubAnswerData();
         List<HsubAnswer> hsubAnswers = hsubData.getHsubAnswers().stream()
                 .filter(hsubAmswer -> hsubAmswer.getHcode().equals(hcode))
