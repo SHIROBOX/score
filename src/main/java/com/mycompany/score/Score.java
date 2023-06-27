@@ -15,7 +15,7 @@ public class Score {
         System.out.println("===================================================================");
         System.out.println("======================== Training 1 ===============================");
         System.out.println("===================================================================");
-        System.out.println("***** Gruop Result : " + service.calculate(10, 10, 10, 10, 60));
+        System.out.println("***** Gruop Result : " + service.calculate(24, 24, 0, 0, 55));
 
     }
 }
