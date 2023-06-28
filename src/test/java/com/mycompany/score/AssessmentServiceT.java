@@ -1,7 +1,12 @@
 package com.mycompany.score;
 
+import com.mycompany.score.mock.HsubAnswerData;
+import com.mycompany.score.mock.QuestionExtensionRuleData;
+import com.mycompany.score.model.HsubAnswer;
 import com.mycompany.score.service.AssessmentService;
 import com.mycompany.score.service.implement.HsubAssessmentServiceImpl;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.Test;
 import org.assertj.core.api.Assertions;
 
@@ -73,6 +78,18 @@ public class AssessmentServiceT {
         Assertions.assertThat(service.calculate(0, 0, 80, 11, 9)).isEqualTo(5);
         Assertions.assertThat(service.calculate(0, 0, 50, 11, 39)).isEqualTo(5);
         Assertions.assertThat(service.calculate(0, 0, 49, 11, 40)).isEqualTo(5);
+    }
+
+    @Test
+    public void haveQuestionExtensionRule() {
+        QuestionExtensionRuleData questionExtensionRuleData = new QuestionExtensionRuleData();
+        HsubAnswerData hsubAnswerData = new HsubAnswerData();
+        int count0WhenQusetionNot0 = hsubAnswerData.getHsubAnswers().stream().filter(hsubAns -> questionExtensionRuleData.getQuestionExtensionRules().stream()
+                .anyMatch(question -> question.getQuestion().equals(hsubAns.getQuestion())
+                && hsubAns.getAnswer().getValue().equals(0)
+                && question.getRule().getId().equals(1)))
+                .collect(Collectors.toList()).size();
+        Assertions.assertThat(count0WhenQusetionNot0 > 0).isEqualTo(true);
     }
 
 }

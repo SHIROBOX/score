@@ -21,10 +21,9 @@ public class HsubAnswerData {
     private List<HsubAnswer> hsubAnswers = new ArrayList<>();
 
     public HsubAnswerData() {
-        hsubAnswers.add(new HsubAnswer("13814", questionService.findQuestion(1), answerService.findAnswer(1)));
         hsubAnswers.add(new HsubAnswer("13814", questionService.findQuestion(1), answerService.findAnswer(4)));
         hsubAnswers.add(new HsubAnswer("13814", questionService.findQuestion(2), answerService.findAnswer(3)));
-        hsubAnswers.add(new HsubAnswer("13814", questionService.findQuestion(3), answerService.findAnswer(2)));
+        hsubAnswers.add(new HsubAnswer("13814", questionService.findQuestion(3), answerService.findAnswer(1)));
         hsubAnswers.add(new HsubAnswer("13814", questionService.findQuestion(4), answerService.findAnswer(3)));
         hsubAnswers.add(new HsubAnswer("13814", questionService.findQuestion(5), answerService.findAnswer(4)));
         hsubAnswers.add(new HsubAnswer("13814", questionService.findQuestion(6), answerService.findAnswer(4)));

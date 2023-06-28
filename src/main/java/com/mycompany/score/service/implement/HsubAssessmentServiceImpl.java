@@ -1,6 +1,7 @@
 package com.mycompany.score.service.implement;
 
 import com.mycompany.score.mock.HsubAnswerData;
+import com.mycompany.score.mock.QuestionExtensionRuleData;
 import com.mycompany.score.model.HsubAnswer;
 import com.mycompany.score.service.AssessmentService;
 import java.math.BigDecimal;
@@ -20,6 +21,10 @@ public class HsubAssessmentServiceImpl implements AssessmentService {
         List<HsubAnswer> hsubAnswers = hsubData.getHsubAnswers().stream()
                 .filter(hsubAmswer -> hsubAmswer.getHcode().equals(hcode))
                 .collect(Collectors.toList());
+        Integer resultGroup = checkQuestionExtensionRule(hsubAnswers);
+        if (resultGroup != null) {
+            return resultGroup;
+        }
         int count3 = hsubAnswers.stream()
                 .filter(ans -> ans.getAnswer().getValue().equals(3))
                 .collect(Collectors.toList()).size();
@@ -62,6 +67,20 @@ public class HsubAssessmentServiceImpl implements AssessmentService {
             }
         }
         return gruopResult;
+    }
+
+    private Integer checkQuestionExtensionRule(List<HsubAnswer> hsubAnswers) {
+        QuestionExtensionRuleData questionExtensionRuleData = new QuestionExtensionRuleData();
+        int count0WhenQusetionNot0 = hsubAnswers.stream()
+                .filter(hsubAnswer -> questionExtensionRuleData.getQuestionExtensionRules().stream()
+                .anyMatch(question -> question.getQuestion().equals(hsubAnswer.getQuestion())
+                && hsubAnswer.getAnswer().getValue().equals(0)
+                && question.getRule().getId().equals(1)))
+                .collect(Collectors.toList()).size();
+        if (count0WhenQusetionNot0 > 0) {
+            return 5;
+        }
+        return null;
     }
 
 }
