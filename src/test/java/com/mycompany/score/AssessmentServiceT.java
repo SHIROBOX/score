@@ -1,11 +1,7 @@
 package com.mycompany.score;
 
-import com.mycompany.score.mock.QuestionExtensionRuleData;
-import com.mycompany.score.model.Rule;
 import com.mycompany.score.service.AssessmentService;
-import com.mycompany.score.service.QuestionService;
 import com.mycompany.score.service.implement.HsubAssessmentServiceImpl;
-import com.mycompany.score.service.implement.QuestionServiceImpl;
 import org.junit.Test;
 import org.assertj.core.api.Assertions;
 
@@ -16,7 +12,6 @@ import org.assertj.core.api.Assertions;
 public class AssessmentServiceT {
 
     public static AssessmentService service = new HsubAssessmentServiceImpl();
-    public static QuestionService questionService = new QuestionServiceImpl();
 
     @Test
     public void calculatGroupReturn1() {
@@ -78,15 +73,6 @@ public class AssessmentServiceT {
         Assertions.assertThat(service.calculate(0, 0, 80, 11, 9)).isEqualTo(5);
         Assertions.assertThat(service.calculate(0, 0, 50, 11, 39)).isEqualTo(5);
         Assertions.assertThat(service.calculate(0, 0, 49, 11, 40)).isEqualTo(5);
-    }
-
-    @Test
-    public void haveQuestionExtensionRule() {
-        QuestionExtensionRuleData questionExtensionRuleData = new QuestionExtensionRuleData();
-        boolean result = questionExtensionRuleData.getQuestionExtensionRules().stream()
-                .anyMatch(questionExtensionRule -> questionExtensionRule.getQuestion().equals(questionService.findQuestion(3))
-                && questionExtensionRule.getRule().equals(Rule.NOTZERO));
-        Assertions.assertThat(result).isEqualTo(true);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.mycompany.score.mock;
 
-import com.mycompany.score.model.Question;
 import com.mycompany.score.model.QuestionExtensionRule;
 import com.mycompany.score.model.Rule;
 import com.mycompany.score.service.QuestionService;
@@ -34,12 +33,6 @@ public class QuestionExtensionRuleData {
         questionExtensionRules.add(new QuestionExtensionRule(questionService.findQuestion(49), Rule.NOTZERO));
         questionExtensionRules.add(new QuestionExtensionRule(questionService.findQuestion(50), Rule.NOTZERO));
         questionExtensionRules.add(new QuestionExtensionRule(questionService.findQuestion(53), Rule.NOTZERO));
-    }
-
-    public boolean IsQuestionNotZero(Question question) {
-        return questionExtensionRules.stream()
-                .anyMatch(questionExtensionRule -> questionExtensionRule.getQuestion().equals(question) 
-                        && questionExtensionRule.getRule().equals(Rule.NOTZERO));
     }
 
     public List<QuestionExtensionRule> getQuestionExtensionRules() {

@@ -1,9 +1,9 @@
 package com.mycompany.score.service.implement;
 
 import com.mycompany.score.mock.HsubAnswerData;
-import com.mycompany.score.mock.QuestionExtensionRuleData;
 import com.mycompany.score.model.HsubAnswer;
 import com.mycompany.score.service.AssessmentService;
+import com.mycompany.score.service.QuestionExtensionRuleService;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
  * @author mbk_i
  */
 public class HsubAssessmentServiceImpl implements AssessmentService {
+
+    private final QuestionExtensionRuleService questionExtensionRuleService = new QuestionExtensionRuleServiceImpl();
 
     @Override
     public int findGroupByHsub(String hcode) {
@@ -67,10 +69,9 @@ public class HsubAssessmentServiceImpl implements AssessmentService {
     }
 
     private int count0WhenQusetionNot0(List<HsubAnswer> hsubAnswers) {
-        QuestionExtensionRuleData questionExtensionRuleData = new QuestionExtensionRuleData();
         return hsubAnswers.stream()
                 .filter(hsubAnswer -> hsubAnswer.getAnswer().getValue().equals(0)
-                    && questionExtensionRuleData.IsQuestionNotZero(hsubAnswer.getQuestion()))
+                        && questionExtensionRuleService.IsQuestionNotZero(hsubAnswer.getQuestion()))
                 .collect(Collectors.toList()).size();
     }
 
