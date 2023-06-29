@@ -19,9 +19,8 @@ public class HsubAssessmentServiceImpl implements AssessmentService {
     public int findGroupByHsub(String hcode) {
         HsubAnswerData hsubData = new HsubAnswerData();
         List<HsubAnswer> hsubAnswers = hsubData.findByHcode(hcode);
-        Integer resultGroup = checkQuestionExtensionRule(hsubAnswers);
-        if (resultGroup != null) {
-            return resultGroup;
+        if (count0WhenQusetionNot0(hsubAnswers) > 0) {
+            return 5;
         }
         int count3 = hsubAnswers.stream()
                 .filter(ans -> ans.getAnswer().getValue().equals(3))
@@ -67,18 +66,12 @@ public class HsubAssessmentServiceImpl implements AssessmentService {
         return gruopResult;
     }
 
-    private Integer checkQuestionExtensionRule(List<HsubAnswer> hsubAnswers) {
+    private int count0WhenQusetionNot0(List<HsubAnswer> hsubAnswers) {
         QuestionExtensionRuleData questionExtensionRuleData = new QuestionExtensionRuleData();
-        int count0WhenQusetionNot0 = hsubAnswers.stream()
-                .filter(hsubAnswer -> questionExtensionRuleData.getQuestionExtensionRules().stream()
-                .anyMatch(question -> question.getQuestion().equals(hsubAnswer.getQuestion())
-                && hsubAnswer.getAnswer().getValue().equals(0)
-                && question.getRule().getId().equals(1)))
+        return hsubAnswers.stream()
+                .filter(hsubAnswer -> hsubAnswer.getAnswer().getValue().equals(0)
+                    && questionExtensionRuleData.IsQuestionNotZero(hsubAnswer.getQuestion()))
                 .collect(Collectors.toList()).size();
-        if (count0WhenQusetionNot0 > 0) {
-            return 5;
-        }
-        return null;
     }
 
 }

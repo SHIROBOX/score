@@ -1,12 +1,11 @@
 package com.mycompany.score;
 
-import com.mycompany.score.mock.HsubAnswerData;
 import com.mycompany.score.mock.QuestionExtensionRuleData;
-import com.mycompany.score.model.HsubAnswer;
+import com.mycompany.score.model.Rule;
 import com.mycompany.score.service.AssessmentService;
+import com.mycompany.score.service.QuestionService;
 import com.mycompany.score.service.implement.HsubAssessmentServiceImpl;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.mycompany.score.service.implement.QuestionServiceImpl;
 import org.junit.Test;
 import org.assertj.core.api.Assertions;
 
@@ -17,6 +16,7 @@ import org.assertj.core.api.Assertions;
 public class AssessmentServiceT {
 
     public static AssessmentService service = new HsubAssessmentServiceImpl();
+    public static QuestionService questionService = new QuestionServiceImpl();
 
     @Test
     public void calculatGroupReturn1() {
@@ -83,13 +83,10 @@ public class AssessmentServiceT {
     @Test
     public void haveQuestionExtensionRule() {
         QuestionExtensionRuleData questionExtensionRuleData = new QuestionExtensionRuleData();
-        HsubAnswerData hsubAnswerData = new HsubAnswerData();
-        int count0WhenQusetionNot0 = hsubAnswerData.getHsubAnswers().stream().filter(hsubAns -> questionExtensionRuleData.getQuestionExtensionRules().stream()
-                .anyMatch(question -> question.getQuestion().equals(hsubAns.getQuestion())
-                && hsubAns.getAnswer().getValue().equals(0)
-                && question.getRule().getId().equals(1)))
-                .collect(Collectors.toList()).size();
-        Assertions.assertThat(count0WhenQusetionNot0 > 0).isEqualTo(true);
+        boolean result = questionExtensionRuleData.getQuestionExtensionRules().stream()
+                .anyMatch(questionExtensionRule -> questionExtensionRule.getQuestion().equals(questionService.findQuestion(3))
+                && questionExtensionRule.getRule().equals(Rule.NOTZERO));
+        Assertions.assertThat(result).isEqualTo(true);
     }
 
 }
